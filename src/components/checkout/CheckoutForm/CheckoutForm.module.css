@@ -1,0 +1,76 @@
+.checkout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 1rem;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #94a3b8;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.step.active .stepNumber {
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff8a80 100%);
+  color: white;
+}
+
+.step.completed .stepNumber {
+  background: #10b981;
+  color: white;
+}
+
+.content {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.guarantee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .steps {
+    gap: 1rem;
+  }
+
+  .step span:last-child {
+    display: none;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+}

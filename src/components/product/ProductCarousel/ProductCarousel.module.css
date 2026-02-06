@@ -1,0 +1,107 @@
+.carousel {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid #e5e7eb;
+  background: white;
+  color: #64748b;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navButton:hover:not(:disabled) {
+  border-color: #ff6b9d;
+  color: #ff6b9d;
+}
+
+.navButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.wrapper {
+  overflow: hidden;
+  margin: 0 -0.75rem;
+}
+
+.track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.slide {
+  flex: 0 0 25%;
+  padding: 0 0.75rem;
+  box-sizing: border-box;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: none;
+  background: #e5e7eb;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dot:hover {
+  background: #cbd5e1;
+}
+
+.dot.active {
+  width: 1.5rem;
+  border-radius: 0.25rem;
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff8a80 100%);
+}
+
+@media (max-width: 1024px) {
+  .slide {
+    flex: 0 0 33.333%;
+  }
+}
+
+@media (max-width: 768px) {
+  .slide {
+    flex: 0 0 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide {
+    flex: 0 0 100%;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
