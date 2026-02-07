@@ -1,33 +1,32 @@
-import { Link } from 'react-router-dom';
-import { Product } from '@/types';
-import { useCart } from '@/context';
-import { Badge, Button, Text } from '@/components/common';
-import { formatCurrency } from '@/utils';
+import { Product } from '@/types/product';
+import { Badge } from '@/components/common/Badge/Badge';
+import { Button } from '@/components/common/Button/Button';
+import { Text } from '@/components/common/Text/Text';
+import { formatCurrency } from '@/utils/formatters';
+import { SAMPLE_PRODUCT, noop } from '@/data/samples';
 import styles from './ProductCard.module.css';
 
 interface ProductCardProps {
   product: Product;
   variant?: 'default' | 'compact';
+  inCart?: boolean;
+  onAddToCart?: (product: Product) => void;
 }
 
 export const ProductCard = ({
   product,
   variant = 'default',
+  inCart = false,
+  onAddToCart,
 }: ProductCardProps) => {
-  const { addItem, isInCart } = useCart();
-  const inCart = isInCart(product.id);
-
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addItem(product);
+    onAddToCart?.(product);
   };
 
   return (
-    <Link
-      to={`/products/${product.id}`}
-      className={`${styles.card} ${styles[variant]}`}
-    >
+    <div className={`${styles.card} ${styles[variant]}`}>
       <div className={styles.imageContainer}>
         <img src={product.image} alt={product.name} className={styles.image} />
         <div className={styles.badges}>
@@ -84,6 +83,10 @@ export const ProductCard = ({
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
+
+export default function ProductCardPreview() {
+  return <ProductCard product={SAMPLE_PRODUCT} onAddToCart={noop} />;
+}

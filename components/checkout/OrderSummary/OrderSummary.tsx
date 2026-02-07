@@ -1,6 +1,13 @@
-import { useCart, useCheckout } from '@/context';
-import { Text, Button } from '@/components/common';
-import { formatCurrency, maskCardNumber } from '@/utils';
+import { MemoryRouter } from 'react-router-dom';
+import { useCart } from '@/context/CartContext';
+import { useCheckout } from '@/context/CheckoutContext';
+import { CartProvider } from '@/context/CartContext';
+import { CheckoutProvider } from '@/context/CheckoutContext';
+import { ProductProvider } from '@/context/ProductContext';
+import { Text } from '@/components/common/Text/Text';
+import { Button } from '@/components/common/Button/Button';
+import { formatCurrency, maskCardNumber } from '@/utils/formatters';
+import { noop } from '@/data/samples';
 import styles from './OrderSummary.module.css';
 
 interface OrderSummaryProps {
@@ -138,3 +145,17 @@ export const OrderSummary = ({
     </div>
   );
 };
+
+export default function OrderSummaryPreview() {
+  return (
+    <MemoryRouter>
+      <ProductProvider>
+        <CartProvider>
+          <CheckoutProvider>
+            <OrderSummary onBack={noop} onPlaceOrder={noop} isProcessing={false} />
+          </CheckoutProvider>
+        </CartProvider>
+      </ProductProvider>
+    </MemoryRouter>
+  );
+}

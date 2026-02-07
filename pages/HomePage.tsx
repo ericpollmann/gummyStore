@@ -1,10 +1,13 @@
-import { Link } from 'react-router-dom';
-import { useProducts } from '@/context';
-import { Container } from '@/components/layout';
-import { ProductCarousel } from '@/components/product';
-import { Button, Text } from '@/components/common';
+import { Link, MemoryRouter } from 'react-router-dom';
+import { useProducts } from '@/context/ProductContext';
+import { ProductProvider } from '@/context/ProductContext';
+import { CartProvider } from '@/context/CartContext';
+import { Container } from '@/components/layout/Container/Container';
+import { ProductCarousel } from '@/components/product/ProductCarousel/ProductCarousel';
+import { Button } from '@/components/common/Button/Button';
+import { Text } from '@/components/common/Text/Text';
 import { categories } from '@/data/products';
-import { formatCategoryName } from '@/utils';
+import { formatCategoryName } from '@/utils/formatters';
 import styles from './HomePage.module.css';
 
 export const HomePage = () => {
@@ -182,3 +185,15 @@ export const HomePage = () => {
     </div>
   );
 };
+
+export default function HomePagePreview() {
+  return (
+    <MemoryRouter>
+      <ProductProvider>
+        <CartProvider>
+          <HomePage />
+        </CartProvider>
+      </ProductProvider>
+    </MemoryRouter>
+  );
+}

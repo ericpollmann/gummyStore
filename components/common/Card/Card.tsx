@@ -71,3 +71,14 @@ export const CardImage = ({ src, alt, className = '' }: CardImageProps) => (
     <img src={src} alt={alt} className={styles.image} />
   </div>
 );
+
+export default function CardPreview() {
+  return (
+    <Card hoverable>
+      <CardImage src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400&h=300&fit=crop" alt="Sample" />
+      <CardHeader>Card Title</CardHeader>
+      <CardBody>This is sample card body content.</CardBody>
+      <CardFooter>Card footer</CardFooter>
+    </Card>
+  );
+}

@@ -1,8 +1,14 @@
-import { useCheckout } from '@/context';
-import { AddressForm } from '../AddressForm';
-import { PaymentForm } from '../PaymentForm';
-import { OrderSummary } from '../OrderSummary';
-import { Text, Badge } from '@/components/common';
+import { MemoryRouter } from 'react-router-dom';
+import { useCheckout } from '@/context/CheckoutContext';
+import { CheckoutProvider } from '@/context/CheckoutContext';
+import { CartProvider } from '@/context/CartContext';
+import { ProductProvider } from '@/context/ProductContext';
+import { AddressForm } from '../AddressForm/AddressForm';
+import { PaymentForm } from '../PaymentForm/PaymentForm';
+import { OrderSummary } from '../OrderSummary/OrderSummary';
+import { Text } from '@/components/common/Text/Text';
+import { Badge } from '@/components/common/Badge/Badge';
+import { noop } from '@/data/samples';
 import styles from './CheckoutForm.module.css';
 
 interface CheckoutFormProps {
@@ -113,3 +119,17 @@ export const CheckoutForm = ({ onOrderComplete }: CheckoutFormProps) => {
     </div>
   );
 };
+
+export default function CheckoutFormPreview() {
+  return (
+    <MemoryRouter>
+      <ProductProvider>
+        <CartProvider>
+          <CheckoutProvider>
+            <CheckoutForm onOrderComplete={noop} />
+          </CheckoutProvider>
+        </CartProvider>
+      </ProductProvider>
+    </MemoryRouter>
+  );
+}

@@ -31,3 +31,7 @@ export const Badge = ({
 
   return <span className={classNames}>{children}</span>;
 };
+
+export default function BadgePreview() {
+  return <Badge variant="primary">New</Badge>;
+}

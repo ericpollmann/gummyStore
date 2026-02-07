@@ -1,14 +1,19 @@
 import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { useCart, useCheckout } from '@/context';
-import { Container } from '@/components/layout';
-import { CheckoutForm } from '@/components/checkout';
-import { CartSummary } from '@/components/cart';
-import { Text, Button } from '@/components/common';
+import { Link, Navigate, MemoryRouter } from 'react-router-dom';
+import { useCart } from '@/context/CartContext';
+import { useCheckout } from '@/context/CheckoutContext';
+import { ProductProvider } from '@/context/ProductContext';
+import { CartProvider } from '@/context/CartContext';
+import { CheckoutProvider } from '@/context/CheckoutContext';
+import { Container } from '@/components/layout/Container/Container';
+import { CheckoutForm } from '@/components/checkout/CheckoutForm/CheckoutForm';
+import { CartSummary } from '@/components/cart/CartSummary/CartSummary';
+import { Text } from '@/components/common/Text/Text';
+import { Button } from '@/components/common/Button/Button';
 import styles from './CheckoutPage.module.css';
 
 export const CheckoutPage = () => {
-  const { items } = useCart();
+  const { items, summary } = useCart();
   const { resetCheckout } = useCheckout();
   const [orderComplete, setOrderComplete] = useState<string | null>(null);
 
@@ -92,7 +97,7 @@ export const CheckoutPage = () => {
                   </div>
                 ))}
               </div>
-              <CartSummary />
+              <CartSummary summary={summary} />
             </div>
 
             <div className={styles.guarantee}>
@@ -121,3 +126,17 @@ export const CheckoutPage = () => {
     </div>
   );
 };
+
+export default function CheckoutPagePreview() {
+  return (
+    <MemoryRouter>
+      <ProductProvider>
+        <CartProvider>
+          <CheckoutProvider>
+            <CheckoutPage />
+          </CheckoutProvider>
+        </CartProvider>
+      </ProductProvider>
+    </MemoryRouter>
+  );
+}

@@ -67,3 +67,14 @@ export const Text = ({
 
   return <Component className={classNames}>{children}</Component>;
 };
+
+export default function TextPreview() {
+  return (
+    <div>
+      <Text variant="h1">Heading 1</Text>
+      <Text variant="h2">Heading 2</Text>
+      <Text variant="body">Body text with default styling.</Text>
+      <Text variant="body-sm" color="muted">Small muted text</Text>
+    </div>
+  );
+}

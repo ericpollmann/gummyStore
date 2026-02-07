@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './Modal.module.css';
 
@@ -68,3 +68,15 @@ export const Modal = ({
     document.body
   );
 };
+
+export default function ModalPreview() {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <>
+      <button onClick={() => setIsOpen(true)}>Open Modal</button>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Sample Modal">
+        <p>This is sample modal content.</p>
+      </Modal>
+    </>
+  );
+}

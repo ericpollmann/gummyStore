@@ -1,10 +1,15 @@
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useProducts, useCart } from '@/context';
-import { Container } from '@/components/layout';
-import { ProductCarousel } from '@/components/product';
-import { Button, Text, Badge } from '@/components/common';
-import { formatCurrency, formatCategoryName } from '@/utils';
+import { useParams, Link, MemoryRouter } from 'react-router-dom';
+import { useProducts } from '@/context/ProductContext';
+import { useCart } from '@/context/CartContext';
+import { ProductProvider } from '@/context/ProductContext';
+import { CartProvider } from '@/context/CartContext';
+import { Container } from '@/components/layout/Container/Container';
+import { ProductCarousel } from '@/components/product/ProductCarousel/ProductCarousel';
+import { Button } from '@/components/common/Button/Button';
+import { Text } from '@/components/common/Text/Text';
+import { Badge } from '@/components/common/Badge/Badge';
+import { formatCurrency, formatCategoryName } from '@/utils/formatters';
 import styles from './ProductDetailPage.module.css';
 
 export const ProductDetailPage = () => {
@@ -174,3 +179,15 @@ export const ProductDetailPage = () => {
     </div>
   );
 };
+
+export default function ProductDetailPagePreview() {
+  return (
+    <MemoryRouter initialEntries={['/products/1']}>
+      <ProductProvider>
+        <CartProvider>
+          <ProductDetailPage />
+        </CartProvider>
+      </ProductProvider>
+    </MemoryRouter>
+  );
+}

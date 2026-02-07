@@ -18,3 +18,11 @@ export const Container = ({
 
   return <div className={classNames}>{children}</div>;
 };
+
+export default function ContainerPreview() {
+  return (
+    <Container>
+      <p>Sample content inside a container.</p>
+    </Container>
+  );
+}

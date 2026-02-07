@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
-import { Product } from '@/types';
-import { ProductCard } from '../ProductCard';
-import { Text } from '@/components/common';
+import { Link } from 'react-router-dom';
+import { Product } from '@/types/product';
+import { useCart } from '@/context/CartContext';
+import { ProductCard } from '../ProductCard/ProductCard';
+import { Text } from '@/components/common/Text/Text';
+import { SAMPLE_PRODUCTS } from '@/data/samples';
 import styles from './ProductCarousel.module.css';
 
 interface ProductCarouselProps {
@@ -20,6 +23,7 @@ export const ProductCarousel = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { addItem, isInCart } = useCart();
 
   const itemsPerView = 4;
   const maxIndex = Math.max(0, products.length - itemsPerView);
@@ -88,7 +92,13 @@ export const ProductCarousel = ({
         >
           {products.map((product) => (
             <div key={product.id} className={styles.slide}>
-              <ProductCard product={product} />
+              <Link to={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
+                <ProductCard
+                  product={product}
+                  inCart={isInCart(product.id)}
+                  onAddToCart={addItem}
+                />
+              </Link>
             </div>
           ))}
         </div>
@@ -109,3 +119,13 @@ export const ProductCarousel = ({
     </div>
   );
 };
+
+export default function ProductCarouselPreview() {
+  return (
+    <div>
+      {SAMPLE_PRODUCTS.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+}

@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import { Address } from '@/types';
-import { Input, Button, Text } from '@/components/common';
-import { validateEmail, validatePhone, validateZipCode, validateRequired } from '@/utils';
+import { Address } from '@/types/order';
+import { Input } from '@/components/common/Input/Input';
+import { Button } from '@/components/common/Button/Button';
+import { Text } from '@/components/common/Text/Text';
+import { validateEmail, validatePhone, validateZipCode, validateRequired } from '@/utils/validators';
+import { noop } from '@/data/samples';
 import styles from './AddressForm.module.css';
 
 interface AddressFormProps {
@@ -167,3 +170,7 @@ export const AddressForm = ({
     </form>
   );
 };
+
+export default function AddressFormPreview() {
+  return <AddressForm title="Shipping Address" onSubmit={noop} />;
+}

@@ -1,13 +1,16 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useCart } from '@/context';
-import { CartItem } from '../CartItem';
-import { CartSummary } from '../CartSummary';
-import { Button, Text } from '@/components/common';
+import { useNavigate, MemoryRouter } from 'react-router-dom';
+import { useCart } from '@/context/CartContext';
+import { ProductProvider } from '@/context/ProductContext';
+import { CartProvider } from '@/context/CartContext';
+import { CartItem } from '../CartItem/CartItem';
+import { CartSummary } from '../CartSummary/CartSummary';
+import { Button } from '@/components/common/Button/Button';
+import { Text } from '@/components/common/Text/Text';
 import styles from './CartDrawer.module.css';
 
 export const CartDrawer = () => {
-  const { items, isOpen, closeCart, clearCart } = useCart();
+  const { items, isOpen, summary, closeCart, clearCart, updateQuantity, removeItem } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,12 +62,18 @@ export const CartDrawer = () => {
           <>
             <div className={styles.items}>
               {items.map((item) => (
-                <CartItem key={item.product.id} item={item} variant="compact" />
+                <CartItem
+                  key={item.product.id}
+                  item={item}
+                  variant="compact"
+                  onUpdateQuantity={updateQuantity}
+                  onRemove={removeItem}
+                />
               ))}
             </div>
 
             <div className={styles.footer}>
-              <CartSummary showDetails={false} />
+              <CartSummary showDetails={false} summary={summary} />
               <div className={styles.actions}>
                 <Button variant="outline" fullWidth onClick={handleViewCart}>
                   View Cart
@@ -83,3 +92,15 @@ export const CartDrawer = () => {
     </>
   );
 };
+
+export default function CartDrawerPreview() {
+  return (
+    <MemoryRouter>
+      <ProductProvider>
+        <CartProvider>
+          <CartDrawer />
+        </CartProvider>
+      </ProductProvider>
+    </MemoryRouter>
+  );
+}

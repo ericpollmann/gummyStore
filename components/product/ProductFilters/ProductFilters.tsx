@@ -1,8 +1,10 @@
-import { useProducts } from '@/context';
-import { ProductCategory, SortOption } from '@/types';
-import { Text, Button } from '@/components/common';
+import { useProducts } from '@/context/ProductContext';
+import { ProductProvider } from '@/context/ProductContext';
+import { ProductCategory, SortOption } from '@/types/product';
+import { Text } from '@/components/common/Text/Text';
+import { Button } from '@/components/common/Button/Button';
 import { categories } from '@/data/products';
-import { formatCategoryName } from '@/utils';
+import { formatCategoryName } from '@/utils/formatters';
 import styles from './ProductFilters.module.css';
 
 interface ProductFiltersProps {
@@ -175,3 +177,11 @@ export const ProductFilters = ({
     </aside>
   );
 };
+
+export default function ProductFiltersPreview() {
+  return (
+    <ProductProvider>
+      <ProductFilters />
+    </ProductProvider>
+  );
+}

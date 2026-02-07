@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
 
 export const Footer = () => {
@@ -38,21 +37,21 @@ export const Footer = () => {
           <div className={styles.links}>
             <h4 className={styles.linksTitle}>Shop</h4>
             <ul className={styles.linksList}>
-              <li><Link to="/products">All Products</Link></li>
-              <li><Link to="/products?category=chocolate">Chocolate</Link></li>
-              <li><Link to="/products?category=gummy">Gummy</Link></li>
-              <li><Link to="/products?category=sour">Sour</Link></li>
-              <li><Link to="/products?category=lollipops">Lollipops</Link></li>
+              <li><a href="/products">All Products</a></li>
+              <li><a href="/products?category=chocolate">Chocolate</a></li>
+              <li><a href="/products?category=gummy">Gummy</a></li>
+              <li><a href="/products?category=sour">Sour</a></li>
+              <li><a href="/products?category=lollipops">Lollipops</a></li>
             </ul>
           </div>
 
           <div className={styles.links}>
             <h4 className={styles.linksTitle}>Help</h4>
             <ul className={styles.linksList}>
-              <li><Link to="/shipping">Shipping Info</Link></li>
-              <li><Link to="/returns">Returns</Link></li>
-              <li><Link to="/faq">FAQ</Link></li>
-              <li><Link to="/contact">Contact Us</Link></li>
+              <li><a href="/shipping">Shipping Info</a></li>
+              <li><a href="/returns">Returns</a></li>
+              <li><a href="/faq">FAQ</a></li>
+              <li><a href="/contact">Contact Us</a></li>
             </ul>
           </div>
 
@@ -79,11 +78,15 @@ export const Footer = () => {
             &copy; {new Date().getFullYear()} Sweet Dreams Candy Store. All rights reserved.
           </p>
           <div className={styles.legal}>
-            <Link to="/privacy">Privacy Policy</Link>
-            <Link to="/terms">Terms of Service</Link>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
           </div>
         </div>
       </div>
     </footer>
   );
 };
+
+export default function FooterPreview() {
+  return <Footer />;
+}
