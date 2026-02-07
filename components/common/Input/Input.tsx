@@ -1,5 +1,5 @@
 import { InputHTMLAttributes, forwardRef, ReactNode } from 'react';
-import { Size } from '@/types';
+import { Size } from '@/types/common';
 import styles from './Input.module.css';
 
 interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -73,3 +73,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 );
 
 Input.displayName = 'Input';
+
+export default function InputPreview() {
+  return <Input label="Email Address" placeholder="you@example.com" fullWidth />;
+}

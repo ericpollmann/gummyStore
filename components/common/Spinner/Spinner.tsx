@@ -32,3 +32,7 @@ export const LoadingOverlay = ({ message = 'Loading...' }: LoadingOverlayProps) 
     <p className={styles.message}>{message}</p>
   </div>
 );
+
+export default function SpinnerPreview() {
+  return <Spinner />;
+}

@@ -12,7 +12,7 @@ import {
   Address,
   PaymentInfo,
   Order,
-} from '@/types';
+} from '@/types/order';
 import { useCart } from './CartContext';
 
 const initialState: CheckoutState = {

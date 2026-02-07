@@ -1,29 +1,35 @@
-import { CartItem as CartItemType } from '@/types';
-import { useCart } from '@/context';
-import { Text } from '@/components/common';
-import { formatCurrency } from '@/utils';
+import { CartItem as CartItemType } from '@/types/cart';
+import { Text } from '@/components/common/Text/Text';
+import { formatCurrency } from '@/utils/formatters';
+import { SAMPLE_CART_ITEM, noop } from '@/data/samples';
 import styles from './CartItem.module.css';
 
 interface CartItemProps {
   item: CartItemType;
   variant?: 'default' | 'compact';
+  onUpdateQuantity?: (productId: string, quantity: number) => void;
+  onRemove?: (productId: string) => void;
 }
 
-export const CartItem = ({ item, variant = 'default' }: CartItemProps) => {
-  const { updateQuantity, removeItem } = useCart();
+export const CartItem = ({
+  item,
+  variant = 'default',
+  onUpdateQuantity,
+  onRemove,
+}: CartItemProps) => {
   const { product, quantity } = item;
 
   const handleDecrease = () => {
     if (quantity > 1) {
-      updateQuantity(product.id, quantity - 1);
+      onUpdateQuantity?.(product.id, quantity - 1);
     } else {
-      removeItem(product.id);
+      onRemove?.(product.id);
     }
   };
 
   const handleIncrease = () => {
     if (quantity < product.stockQuantity) {
-      updateQuantity(product.id, quantity + 1);
+      onUpdateQuantity?.(product.id, quantity + 1);
     }
   };
 
@@ -71,7 +77,7 @@ export const CartItem = ({ item, variant = 'default' }: CartItemProps) => {
 
       <button
         className={styles.removeButton}
-        onClick={() => removeItem(product.id)}
+        onClick={() => onRemove?.(product.id)}
         aria-label="Remove item"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -81,3 +87,7 @@ export const CartItem = ({ item, variant = 'default' }: CartItemProps) => {
     </div>
   );
 };
+
+export default function CartItemPreview() {
+  return <CartItem item={SAMPLE_CART_ITEM} onUpdateQuantity={noop} onRemove={noop} />;
+}

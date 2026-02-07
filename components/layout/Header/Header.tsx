@@ -1,10 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '@/context';
-import { SearchBar } from '@/components/search/SearchBar';
+import { Link, useNavigate, MemoryRouter } from 'react-router-dom';
+import { useCart } from '@/context/CartContext';
+import { useProducts } from '@/context/ProductContext';
+import { ProductProvider } from '@/context/ProductContext';
+import { CartProvider } from '@/context/CartContext';
+import { SearchBar } from '@/components/search/SearchBar/SearchBar';
 import styles from './Header.module.css';
 
 export const Header = () => {
   const { summary, toggleCart } = useCart();
+  const { products } = useProducts();
   const navigate = useNavigate();
 
   return (
@@ -23,7 +27,10 @@ export const Header = () => {
         </nav>
 
         <div className={styles.search}>
-          <SearchBar onSearch={(query) => navigate(`/products?search=${query}`)} />
+          <SearchBar
+            onSearch={(query) => navigate(`/products?search=${query}`)}
+            suggestions={products}
+          />
         </div>
 
         <div className={styles.actions}>
@@ -42,3 +49,15 @@ export const Header = () => {
     </header>
   );
 };
+
+export default function HeaderPreview() {
+  return (
+    <MemoryRouter>
+      <ProductProvider>
+        <CartProvider>
+          <Header />
+        </CartProvider>
+      </ProductProvider>
+    </MemoryRouter>
+  );
+}

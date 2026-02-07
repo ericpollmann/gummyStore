@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import { PaymentInfo } from '@/types';
-import { Input, Button, Text } from '@/components/common';
-import { validateCardNumber, validateExpiryDate, validateCVV, validateRequired } from '@/utils';
-import { formatCardNumber } from '@/utils';
+import { PaymentInfo } from '@/types/order';
+import { Input } from '@/components/common/Input/Input';
+import { Button } from '@/components/common/Button/Button';
+import { Text } from '@/components/common/Text/Text';
+import { validateCardNumber, validateExpiryDate, validateCVV, validateRequired } from '@/utils/validators';
+import { formatCardNumber } from '@/utils/formatters';
+import { noop } from '@/data/samples';
 import styles from './PaymentForm.module.css';
 
 interface PaymentFormProps {
@@ -157,3 +160,7 @@ export const PaymentForm = ({ onSubmit, onBack }: PaymentFormProps) => {
     </form>
   );
 };
+
+export default function PaymentFormPreview() {
+  return <PaymentForm onSubmit={noop} onBack={noop} />;
+}

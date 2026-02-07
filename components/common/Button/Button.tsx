@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
-import { Size, Variant } from '@/types';
+import { Size, Variant } from '@/types/common';
 import styles from './Button.module.css';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -47,3 +47,7 @@ export const Button = ({
     </button>
   );
 };
+
+export default function ButtonPreview() {
+  return <Button>Add to Cart</Button>;
+}

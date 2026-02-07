@@ -6,7 +6,8 @@ import {
   useMemo,
   ReactNode,
 } from 'react';
-import { CartContextValue, CartItem, CartSummary, Product } from '@/types';
+import { CartContextValue, CartItem, CartSummary } from '@/types/cart';
+import { Product } from '@/types/product';
 
 const TAX_RATE = 0.08;
 const FREE_SHIPPING_THRESHOLD = 50;

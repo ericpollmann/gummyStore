@@ -1,14 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { CartProvider, ProductProvider, CheckoutProvider } from '@/context';
-import { Header, Footer } from '@/components/layout';
-import { CartDrawer } from '@/components/cart';
-import {
-  HomePage,
-  ProductsPage,
-  ProductDetailPage,
-  CartPage,
-  CheckoutPage,
-} from '@/pages';
+import { CartProvider } from '@/context/CartContext';
+import { ProductProvider } from '@/context/ProductContext';
+import { CheckoutProvider } from '@/context/CheckoutContext';
+import { Header } from '@/components/layout/Header/Header';
+import { Footer } from '@/components/layout/Footer/Footer';
+import { CartDrawer } from '@/components/cart/CartDrawer/CartDrawer';
+import { HomePage } from '@/pages/HomePage';
+import { ProductsPage } from '@/pages/ProductsPage';
+import { ProductDetailPage } from '@/pages/ProductDetailPage';
+import { CartPage } from '@/pages/CartPage';
+import { CheckoutPage } from '@/pages/CheckoutPage';
 import './index.css';
 
 export const App = () => {

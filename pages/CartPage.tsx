@@ -1,12 +1,16 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '@/context';
-import { Container } from '@/components/layout';
-import { CartItem, CartSummary } from '@/components/cart';
-import { Button, Text } from '@/components/common';
+import { Link, useNavigate, MemoryRouter } from 'react-router-dom';
+import { useCart } from '@/context/CartContext';
+import { ProductProvider } from '@/context/ProductContext';
+import { CartProvider } from '@/context/CartContext';
+import { Container } from '@/components/layout/Container/Container';
+import { CartItem } from '@/components/cart/CartItem/CartItem';
+import { CartSummary } from '@/components/cart/CartSummary/CartSummary';
+import { Button } from '@/components/common/Button/Button';
+import { Text } from '@/components/common/Text/Text';
 import styles from './CartPage.module.css';
 
 export const CartPage = () => {
-  const { items, clearCart } = useCart();
+  const { items, summary, clearCart, updateQuantity, removeItem } = useCart();
   const navigate = useNavigate();
 
   if (items.length === 0) {
@@ -39,12 +43,17 @@ export const CartPage = () => {
         <div className={styles.layout}>
           <div className={styles.items}>
             {items.map((item) => (
-              <CartItem key={item.product.id} item={item} />
+              <CartItem
+                key={item.product.id}
+                item={item}
+                onUpdateQuantity={updateQuantity}
+                onRemove={removeItem}
+              />
             ))}
           </div>
 
           <aside className={styles.sidebar}>
-            <CartSummary />
+            <CartSummary summary={summary} />
             <Button
               size="lg"
               fullWidth
@@ -63,3 +72,15 @@ export const CartPage = () => {
     </div>
   );
 };
+
+export default function CartPagePreview() {
+  return (
+    <MemoryRouter>
+      <ProductProvider>
+        <CartProvider>
+          <CartPage />
+        </CartProvider>
+      </ProductProvider>
+    </MemoryRouter>
+  );
+}

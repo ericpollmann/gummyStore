@@ -11,7 +11,7 @@ import {
   ProductFilters,
   Product,
   ProductCategory,
-} from '@/types';
+} from '@/types/product';
 import { products as mockProducts } from '@/data/products';
 
 const defaultFilters: ProductFilters = {

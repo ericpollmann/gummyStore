@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useProducts } from '@/context';
-import { Container } from '@/components/layout';
-import { ProductGrid, ProductFilters } from '@/components/product';
-import { Text } from '@/components/common';
-import { ProductCategory } from '@/types';
-import { formatCategoryName } from '@/utils';
+import { useSearchParams, MemoryRouter } from 'react-router-dom';
+import { useProducts } from '@/context/ProductContext';
+import { ProductProvider } from '@/context/ProductContext';
+import { CartProvider } from '@/context/CartContext';
+import { Container } from '@/components/layout/Container/Container';
+import { ProductGrid } from '@/components/product/ProductGrid/ProductGrid';
+import { ProductFilters } from '@/components/product/ProductFilters/ProductFilters';
+import { Text } from '@/components/common/Text/Text';
+import { ProductCategory } from '@/types/product';
+import { formatCategoryName } from '@/utils/formatters';
 import styles from './ProductsPage.module.css';
 
 export const ProductsPage = () => {
@@ -54,3 +57,15 @@ export const ProductsPage = () => {
     </div>
   );
 };
+
+export default function ProductsPagePreview() {
+  return (
+    <MemoryRouter initialEntries={['/products']}>
+      <ProductProvider>
+        <CartProvider>
+          <ProductsPage />
+        </CartProvider>
+      </ProductProvider>
+    </MemoryRouter>
+  );
+}

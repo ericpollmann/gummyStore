@@ -1,23 +1,25 @@
 import { useState, useRef, useEffect } from 'react';
-import { useProducts } from '@/context';
+import { Product } from '@/types/product';
+import { noop } from '@/data/samples';
 import styles from './SearchBar.module.css';
 
 interface SearchBarProps {
   onSearch?: (query: string) => void;
   placeholder?: string;
+  suggestions?: Product[];
 }
 
 export const SearchBar = ({
   onSearch,
   placeholder = 'Search candies...',
+  suggestions = [],
 }: SearchBarProps) => {
   const [query, setQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
-  const { products } = useProducts();
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const filteredProducts = query.length > 1
-    ? products
+    ? suggestions
         .filter((p) =>
           p.name.toLowerCase().includes(query.toLowerCase()) ||
           p.tags.some((t) => t.toLowerCase().includes(query.toLowerCase()))
@@ -108,3 +110,7 @@ export const SearchBar = ({
     </div>
   );
 };
+
+export default function SearchBarPreview() {
+  return <SearchBar onSearch={noop} />;
+}

@@ -1,15 +1,18 @@
-import { useCart } from '@/context';
-import { Text } from '@/components/common';
-import { formatCurrency } from '@/utils';
+import { CartSummary as CartSummaryType } from '@/types/cart';
+import { Text } from '@/components/common/Text/Text';
+import { formatCurrency } from '@/utils/formatters';
+import { SAMPLE_CART_SUMMARY } from '@/data/samples';
 import styles from './CartSummary.module.css';
 
 interface CartSummaryProps {
   showDetails?: boolean;
+  summary?: CartSummaryType;
 }
 
-export const CartSummary = ({ showDetails = true }: CartSummaryProps) => {
-  const { summary } = useCart();
-
+export const CartSummary = ({
+  showDetails = true,
+  summary = SAMPLE_CART_SUMMARY,
+}: CartSummaryProps) => {
   return (
     <div className={styles.summary}>
       {showDetails && (
@@ -55,3 +58,7 @@ export const CartSummary = ({ showDetails = true }: CartSummaryProps) => {
     </div>
   );
 };
+
+export default function CartSummaryPreview() {
+  return <CartSummary summary={SAMPLE_CART_SUMMARY} />;
+}

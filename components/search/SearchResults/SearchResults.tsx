@@ -1,6 +1,9 @@
-import { Product } from '@/types';
-import { ProductCard } from '@/components/product/ProductCard';
-import { Text } from '@/components/common';
+import { Link } from 'react-router-dom';
+import { Product } from '@/types/product';
+import { useCart } from '@/context/CartContext';
+import { ProductCard } from '@/components/product/ProductCard/ProductCard';
+import { Text } from '@/components/common/Text/Text';
+import { SAMPLE_PRODUCTS } from '@/data/samples';
 import styles from './SearchResults.module.css';
 
 interface SearchResultsProps {
@@ -14,6 +17,8 @@ export const SearchResults = ({
   results,
   isLoading = false,
 }: SearchResultsProps) => {
+  const { addItem, isInCart } = useCart();
+
   if (isLoading) {
     return (
       <div className={styles.loading}>
@@ -51,9 +56,24 @@ export const SearchResults = ({
       </div>
       <div className={styles.grid}>
         {results.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <Link key={product.id} to={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
+            <ProductCard
+              product={product}
+              inCart={isInCart(product.id)}
+              onAddToCart={addItem}
+            />
+          </Link>
         ))}
       </div>
     </div>
   );
 };
+
+export default function SearchResultsPreview() {
+  return (
+    <SearchResults
+      query="chocolate"
+      results={SAMPLE_PRODUCTS.slice(0, 3)}
+    />
+  );
+}
