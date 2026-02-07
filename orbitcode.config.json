@@ -1,0 +1,7 @@
+{
+  "name": "Gummy Store",
+  "description": "A colorful gummy candy e-commerce store",
+  "icon": "🍬",
+  "defaultTheme": "light",
+  "defaultLayout": "sidebyside"
+}
